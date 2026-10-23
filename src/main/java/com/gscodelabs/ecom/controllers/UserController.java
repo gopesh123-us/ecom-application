@@ -1,28 +1,29 @@
 package com.gscodelabs.ecom.controllers;
 
-import com.gscodelabs.ecom.entity.User;
-import org.springframework.http.ResponseEntity;
+import com.gscodelabs.ecom.model.entity.User;
+import com.gscodelabs.ecom.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
-    private final List<User> userList = new ArrayList<>();
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/api/users")
     public List<User> getAllUsers() {
-        return userList;
+        return userService.fetchAllUsers();
     }
 
     @PostMapping("/api/createUser")
-    public ResponseEntity<List<User>> createUser(@RequestBody User user) {
-        userList.add(user);
-
-        String name = user.getName();
-        System.out.println("Name: " + name);
-        return ResponseEntity.ok(userList);
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createUser(@RequestBody User user) {
+        return userService.addUser(user);
     }
-
 }

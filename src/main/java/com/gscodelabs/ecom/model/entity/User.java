@@ -1,4 +1,4 @@
-package com.gscodelabs.ecom.entity;
+package com.gscodelabs.ecom.model.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
