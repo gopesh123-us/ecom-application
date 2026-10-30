@@ -12,4 +12,6 @@ public interface UserService {
     User addUser(User user);
 
     Optional<User> findUser(Long userId);
+
+    Optional<User> updateUser(Long id, User user);
 }

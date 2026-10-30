@@ -28,12 +28,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findUser(Long userId) {
+        return userList.stream().filter(user -> user.getId().equals(userId)).findFirst();
+    }
 
-        for (User user : userList) {
-            if (user.getId().equals(userId)) {
-                return Optional.of(user);
-            }
-        }
-        return Optional.empty();
+
+    @Override
+    public Optional<User> updateUser(Long id, User updatedUser) {
+        return userList.stream().filter(user -> user.getId().equals(id)).findFirst().map(existingUser -> {
+            existingUser.setName(updatedUser.getName());
+            existingUser.setLastName(updatedUser.getLastName());
+            return existingUser;
+        });
     }
 }
